@@ -55,4 +55,29 @@ def predict_major_life_events(dob, name):
             {"year": 2040, "event": "Early Retirement Option"}
         ]
     }
+def predict_major_life_events(dob, name):
+    from datetime import datetime
+    import random
+
+    birth_year = int(dob.split("-")[0])
+    base = birth_year + 30
+    random.seed(len(name) + birth_year)  # Fixed randomness per user
+
+    return {
+        "Career Peaks": [
+            {"year": base + random.randint(0, 2), "event": "Promoted to Lead Role"},
+            {"year": base + random.randint(3, 6), "event": "Started Own Business"},
+            {"year": base + random.randint(7, 10), "event": "Became Industry Mentor"}
+        ],
+        "Relationship Timeline": [
+            {"year": base + random.randint(1, 3), "event": "Met Life Partner"},
+            {"year": base + random.randint(4, 6), "event": "Got Married"},
+            {"year": base + random.randint(7, 9), "event": "Welcomed First Child"}
+        ],
+        "Wealth Milestones": [
+            {"year": base + random.randint(2, 4), "event": "Bought First Home"},
+            {"year": base + random.randint(6, 9), "event": "Reached Financial Independence"},
+            {"year": base + random.randint(10, 15), "event": "Early Retirement Option"}
+        ]
+    }
 
