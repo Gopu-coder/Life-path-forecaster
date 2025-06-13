@@ -1,1 +1,0 @@
-# Astrology calculation module
