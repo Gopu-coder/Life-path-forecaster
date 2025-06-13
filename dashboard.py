@@ -1,6 +1,6 @@
 # Streamlit dashboard code will go here
 import streamlit as st
-from utils import numerology, astrology  # Make sure these files exist
+from utils import numerology, astrology, ml_model  # Make sure these files exist
 
 st.set_page_config(page_title="🔮 Life Path Forecaster", layout="centered")
 
@@ -42,6 +42,21 @@ if st.button("🔍 Predict My Future"):
             st.write(f"**Rising Sign:** {astro.get('ascendant', '-')}")
         except Exception as e:
             st.warning("Astrology prediction could not be completed. Please check birth info.")
+# --- ML MODEL PREDICTION ---
+  ml_prediction = ml_model.predict_future(
+    full_name,
+    str(dob),
+    numerology_result.get("life_path_number", 0),
+    astro.get("moon_sign", ""),
+    astro.get("ascendant", "")
+)
+
+st.subheader("🤖 Life Prediction Engine (AI-Based)")
+st.write(f"**Age:** {ml_prediction['age']}")
+st.write(f"**Phase of Life:** {ml_prediction['predicted_phase']}")
+st.write("**Predicted Traits:**")
+for trait in ml_prediction["highlighted_traits"]:
+    st.markdown(f"- {trait}")
 
         st.success("✅ Prediction complete!")
 
