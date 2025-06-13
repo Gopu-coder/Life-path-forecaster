@@ -10,7 +10,14 @@ st.title("🔮 Life Path Forecaster")
 st.header("Enter Your Details")
 
 full_name = st.text_input("Full Name")
-dob = st.date_input("Date of Birth")
+import datetime
+dob = st.date_input(
+    "Date of Birth",
+    min_value=datetime.date(1900, 1, 1),
+    max_value=datetime.date.today(),
+    value=datetime.date(1990, 1, 1)
+)
+
 birth_time = st.time_input("Time of Birth")
 birth_place = st.text_input("Place of Birth (City, Country)")
 
