@@ -1,62 +1,59 @@
-# Streamlit dashboard code will go here
 import streamlit as st
-from utils import numerology, astrology, ml_model  # Make sure these files exist
+from datetime import datetime
+from utils import numerology, astrology, ml_model
 
 st.set_page_config(page_title="🔮 Life Path Forecaster", layout="centered")
 
 st.title("🔮 Life Path Forecaster")
+st.markdown("_✨ Discover what the stars, numbers, and some ancient cosmic tea say about your life!_")
 
-# Input Section
-st.header("Enter Your Details")
+full_name = st.text_input("🧑 Full Name")
+dob = st.date_input("📅 Date of Birth", value=datetime(1994, 2, 6))
+birth_time = st.text_input("⏰ Time of Birth (HH:MM)", value="06:50")
+birth_place = st.text_input("🌍 Place of Birth", value="Dhenkanal, Odisha")
 
-full_name = st.text_input("Full Name")
-import datetime
-dob = st.date_input(
-    "Date of Birth",
-    min_value=datetime.date(1900, 1, 1),
-    max_value=datetime.date.today(),
-    value=datetime.date(1990, 1, 1)
-)
-
-birth_time = st.time_input("Time of Birth")
-birth_place = st.text_input("Place of Birth (City, Country)")
-
-# Predict Button
-if st.button("🔍 Predict My Future"):
-
-    if not full_name or not birth_place:
-        st.warning("Please fill in all fields.")
+if st.button("🔍 Reveal My Cosmic Destiny"):
+    if not full_name or not dob:
+        st.error("🚫 Please enter all required fields to unlock your fate.")
     else:
-        # Basic Numerology Prediction
-        numerology_result = numerology.get_life_path_info(full_name, str(dob))
-        st.subheader("🧮 Numerology Reading")
-        st.write(f"**Life Path Number:** {numerology_result.get('life_path_number', '-')}")
-        st.write(f"**Expression Number:** {numerology_result.get('expression_number', '-')}")
-        st.write(f"**Soul Urge Number:** {numerology_result.get('soul_urge_number', '-')}")
+        with st.spinner("🪄 Consulting the cosmos, decoding numbers..."):
+            numerology_result = numerology.get_life_path_info(full_name, str(dob))
+            astro_result = astrology.get_astrological_info(str(dob), birth_time, birth_place)
+            life_predictions = ml_model.predict_major_life_events(str(dob), full_name)
 
-        # Astrology Prediction (if available)
-        try:
-            astro = astrology.get_basic_astrology(str(dob), str(birth_time), birth_place)
-            st.subheader("🌌 Astrology Insight")
-            st.write(f"**Moon Sign:** {astro.get('moon_sign', '-')}")
-            st.write(f"**Rising Sign:** {astro.get('ascendant', '-')}")
-        except Exception as e:
-            st.warning("Astrology prediction could not be completed. Please check birth info.")
-# --- ML MODEL PREDICTION ---
-  ml_prediction = ml_model.predict_future(
-    full_name,
-    str(dob),
-    numerology_result.get("life_path_number", 0),
-    astro.get("moon_sign", ""),
-    astro.get("ascendant", "")
-)
+        st.header("🔢 Numerology Reading")
+        st.markdown(f"**🔑 Life Path Number:** {numerology_result['Life Path Number']}")
+        st.markdown(f"**😎 Personality Traits:** {numerology_result['Personality Traits']}")
+        st.markdown(f"**💼 Career Vibes:** {numerology_result['Career Path']}")
+        st.markdown(f"**💖 Love Forecast:** {numerology_result['Love & Relationship']}")
+        st.markdown(f"**🩺 Health Notes:** {numerology_result['Health Guidance']}")
+        st.markdown(f"**🧠 Expression Number:** {numerology_result['Expression Number']}")
+        st.markdown(f"**🔥 Soul Urge Number:** {numerology_result['Soul Urge Number']}")
+        st.markdown("🧙 _Rumor says someone with your Life Path Number once became a time traveler in 1892... coincidence?_")
 
-st.subheader("🤖 Life Prediction Engine (AI-Based)")
-st.write(f"**Age:** {ml_prediction['age']}")
-st.write(f"**Phase of Life:** {ml_prediction['predicted_phase']}")
-st.write("**Predicted Traits:**")
-for trait in ml_prediction["highlighted_traits"]:
-    st.markdown(f"- {trait}")
+        st.header("🌠 Astrology Vibes")
+        st.markdown(f"**🌙 Moon Sign:** {astro_result['Moon Sign']}")
+        st.markdown(f"**🧵 Moon Traits:** {astro_result['Moon Traits']}")
+        st.markdown(f"**🌅 Rising Sign:** {astro_result['Rising Sign']}")
+        st.markdown(f"**✨ Rising Traits:** {astro_result['Rising Traits']}")
+        st.markdown(f"**💘 Love Style:** {astro_result['Love Style']}")
+        st.markdown(f"**📈 Career Drive:** {astro_result['Career Drive']}")
+        st.markdown(f"**🚨 Health Alert:** {astro_result['Health Alert']}")
+        st.markdown("🔭 _Astrologers agree: people with your Moon-Rising combo tend to find snacks in mysterious places._")
 
-        st.success("✅ Prediction complete!")
+        st.header("📊 Life Timeline Predictions")
 
+        st.subheader("🚀 Career Peaks")
+        for event in life_predictions["Career Peaks"]:
+            st.markdown(f"- **{event['year']}**: {event['event']}")
+
+        st.subheader("💞 Relationship Timeline")
+        for event in life_predictions["Relationship Timeline"]:
+            st.markdown(f"- **{event['year']}**: {event['event']}")
+
+        st.subheader("💰 Wealth Milestones")
+        for event in life_predictions["Wealth Milestones"]:
+            st.markdown(f"- **{event['year']}**: {event['event']}")
+
+        st.markdown("_🤖 These are AI-generated forecasts — believe them only if you're into time travel!_")
+        st.success("🔓 Your cosmic forecast has been unlocked!")
