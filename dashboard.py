@@ -26,7 +26,7 @@ if st.button("🔍 Reveal My Future"):
                 "ml_predictions": life_predictions
             })
 
-        # 🌟 Display Numerology
+        # 🔢 Numerology
         st.header("🔢 Numerology Reading")
         st.markdown(f"**🔑 Life Path Number:** `{numerology_result['Life Path Number']}`")
         st.markdown(f"**🧠 Expression Number:** `{numerology_result['Expression Number']}`")
@@ -35,21 +35,19 @@ if st.button("🔍 Reveal My Future"):
         st.markdown(f"**📈 Career Path:** _{numerology_result['Career Path']}_")
         st.markdown(f"**❤️ Love Insight:** _{numerology_result['Love & Relationship']}_")
         st.markdown(f"**🩺 Health Guide:** _{numerology_result['Health Guidance']}_")
-        st.markdown("🔮 _Psst... This number has guided mystics and millionaires alike._")
 
-        # 🌠 Display Astrology
+        # 🌠 Astrology
         st.header("🌠 Astrology Insight")
         st.markdown(f"**🌙 Moon Sign:** `{astro_result['Moon Sign']}`")
         st.markdown(f"**🌞 Rising Sign:** `{astro_result['Rising Sign']}`")
-        st.markdown(f"**🪐 Moon Traits:** _{astro_result['Moon Traits']}_")
+        st.markdown(f"**💫 Moon Traits:** _{astro_result['Moon Traits']}_")
         st.markdown(f"**🧭 Rising Traits:** _{astro_result['Rising Traits']}_")
         st.markdown(f"**💘 Love Style:** _{astro_result['Love Style']}_")
         st.markdown(f"**📊 Career Drive:** _{astro_result['Career Drive']}_")
         st.markdown(f"**💉 Health Alert:** _{astro_result['Health Alert']}_")
-        st.markdown("🪄 _You shine brightest under cosmic pressure!_")
 
-        # 🤖 ML-Based Future Predictions
-        st.header("📊 AI Future Forecast")
+        # 🤖 AI Predictions
+        st.header("📊 AI-Powered Life Predictions")
 
         st.subheader("🚀 Career Peaks")
         for event in life_predictions["Career Peaks"]:
