@@ -37,3 +37,22 @@ def predict_future(name, dob, life_path, moon_sign, ascendant):
         "predicted_phase": phase,
         "highlighted_traits": traits
     }
+def predict_major_life_events(dob, name):
+    return {
+        "Career Peaks": [
+            {"year": 2026, "event": "Promoted to Lead Role"},
+            {"year": 2030, "event": "Started Own Business"},
+            {"year": 2035, "event": "Became Industry Mentor"}
+        ],
+        "Relationship Timeline": [
+            {"year": 2027, "event": "Met Life Partner"},
+            {"year": 2029, "event": "Got Married"},
+            {"year": 2032, "event": "Welcomed First Child"}
+        ],
+        "Wealth Milestones": [
+            {"year": 2028, "event": "Bought First Home"},
+            {"year": 2033, "event": "Reached Financial Independence"},
+            {"year": 2040, "event": "Early Retirement Option"}
+        ]
+    }
+
